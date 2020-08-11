@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Link, withRouter} from "react-router-dom"
+import {withRouter} from "react-router-dom"
 import TweetService from "./TweetService";
+import Grid from "@material-ui/core/Grid";
+import Tweet from "./Tweet";
 
 class Tweets extends Component {
 
@@ -27,7 +29,12 @@ class Tweets extends Component {
         return (
             <>
                 <h1>TWEETS</h1>
-                {this.state.tweets.map(tweet => <h1>{tweet.title}</h1>)}
+
+                <Grid item xs={12} md={8}>
+                    {this.state.tweets.map(tweet => (
+                        <Tweet {...tweet} key={tweet.tweet_id}/>
+                    ))}
+                </Grid>
             </>
         );
     }

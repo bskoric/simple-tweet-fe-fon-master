@@ -3,6 +3,8 @@ import {BrowserRouter as Router, Switch} from 'react-router-dom';
 import { Route} from 'react-router-dom'
 import './App.css';
 import Layout from "./components/layout/Layout";
+import 'fontsource-roboto';
+import "./assets/css/main.css";
 
 function App() {
   return (
