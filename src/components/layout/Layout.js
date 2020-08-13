@@ -6,17 +6,17 @@ import Header from "./Header";
 class Layout extends Component {
     render() {
         const navigation = [
-            { title: 'Technology', url: '#' },
-            { title: 'Design', url: '#' },
-            { title: 'Culture', url: '#' },
-            { title: 'Business', url: '#' },
-            { title: 'Politics', url: '#' },
+            { title: 'My tweets', url: '#' },
+            { title: 'Friends', url: '#' },
+            { title: 'Find friends', url: '#' },
+            { title: 'Profile', url: '#' },
         ];
 
         return (
+            <>
+            <Header title="Simple tweet" sections={navigation} headerColor={"white"} titleColor={"#50719e"}/>
             <div className="wrapper">
-                <Header title="Simple tweet" sections={navigation} />
-                <section className="content">
+                <section className="content-app">
                     <Switch>
                         <Route path='/' exact={true} component={Homepage}/>
                     </Switch>
@@ -24,6 +24,7 @@ class Layout extends Component {
                 <footer>
                 </footer>
             </div>
+                </>
         );
     }
 }

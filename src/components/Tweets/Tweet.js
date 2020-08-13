@@ -2,7 +2,13 @@ import React, {Component} from 'react';
 import {withRouter} from "react-router-dom"
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import CardHeader from "@material-ui/core/CardHeader";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import IconButton from "@material-ui/core/IconButton";
+import Avatar from "@material-ui/core/Avatar";
+import CardActions from "@material-ui/core/CardActions";
 
 class Tweet extends Component {
 
@@ -13,17 +19,34 @@ class Tweet extends Component {
 
     render() {
         const tweet = this.props;
-        const {title, post} = tweet;
-
+        const {title, post, first_name, last_name, date} = tweet;
+        const userFullName = first_name + " " + last_name;
+        const avatarInitial = first_name.charAt(0) + last_name.charAt(0);
         return (
-            <Grid item xs={12} md={8}>
-                <Typography variant="h6" gutterBottom>
-                    {title}
-                </Typography>
-                <Divider/>
-                <div>
-                    {post}
-                </div>
+
+            <Grid item xs={12} md={10}>
+                <Card>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe">{avatarInitial}</Avatar>
+                        }
+                        title={userFullName}
+                        subheader={new Date(date).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric' })}
+                    />
+                    <CardContent>
+                        <Typography variant="subtitle1" color="textPrimary" className={"tweetTitle"}>
+                            {title}
+                        </Typography>
+                        <Typography variant="body1" color="textSecondary" component="p" style={{marginTop: 5}}>
+                            {post}
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                            <FavoriteIcon/>
+                        </IconButton>
+                    </CardActions>
+                </Card>
                 <br/>
                 <br/>
             </Grid>

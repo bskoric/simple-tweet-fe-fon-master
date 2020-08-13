@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300&display=swap');
 
+.container-app {
+    background-color: #f0f0f08a;
+}
+
 .wrapper {
-    margin:auto;
+    margin: auto;
     width: 90%;
+}
+
+.header {
+    border-bottom: 1px solid #bebebe;
+}
+
+
+.tweetsHomepage {
+    margin-top: 30px;
 }

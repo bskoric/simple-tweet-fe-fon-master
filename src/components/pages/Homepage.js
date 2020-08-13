@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import Tweets from "../Tweets/Tweets";
+import Grid from "@material-ui/core/Grid";
+import InsertTweet from "../Tweets/InsertTweet";
 
 class Homepage extends Component {
 
@@ -29,8 +31,20 @@ class Homepage extends Component {
     render () {
         return (
             <React.Fragment>
-                <h1>Helooo World</h1>
-                <Tweets/>
+                <Grid container spacing={1}>
+                    <Grid item xs={12} md={8}>
+                        <div className={"tweetsHomepage"}>
+                            <Tweets />
+                        </div>
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
+                        <div className={"tweetsHomepage"}>
+                            <p style={{fontFamily: "Lemonada", color: "rgb(50 73 106)"}}>New tweet</p>
+                            <InsertTweet />
+                        </div>
+                    </Grid>
+                </Grid>
             </React.Fragment>
         );
     }
