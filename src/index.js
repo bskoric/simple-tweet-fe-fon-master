@@ -10,6 +10,7 @@ ReactDOM.render(
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
       />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
