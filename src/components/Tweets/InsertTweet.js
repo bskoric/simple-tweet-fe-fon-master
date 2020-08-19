@@ -36,8 +36,6 @@ class InsertTweet extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         const {tweet} = this.state;
-        console.log("Brankooo");
-        console.log(tweet);
 
         TweetService.addTweet(tweet).catch( error => {
                 /*            this.props.history.push({

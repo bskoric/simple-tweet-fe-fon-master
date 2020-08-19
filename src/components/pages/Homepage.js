@@ -29,6 +29,7 @@ class Homepage extends Component {
                 tweets: res.data,
             }))
     }
+
     onShowAlert = () => {
         this.setState({showAlert: true}, () => {
             window.setTimeout(() => {

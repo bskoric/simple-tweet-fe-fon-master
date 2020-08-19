@@ -1,8 +1,5 @@
 import DataService from '../service/DataService';
-
-const ALL_TWEETS_FRIENDS = 'http://localhost:9000/tweets/friend';
-const INSERT_TWEET = 'http://localhost:9000/tweets/insert';
-
+import {ALL_TWEETS_FRIENDS, INSERT_TWEET} from "../../const/Const";
 
 class TweetService {
 

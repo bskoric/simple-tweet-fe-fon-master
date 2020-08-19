@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Route, Switch} from 'react-router-dom';
 import Homepage from "../pages/Homepage";
 import Header from "./Header";
+import "./../../assets/css/main.css";
 
 class Layout extends Component {
     render() {
@@ -13,18 +14,18 @@ class Layout extends Component {
         ];
 
         return (
-            <>
-            <Header title="Simple tweet" sections={navigation} headerColor={"white"} titleColor={"#50719e"}/>
-            <div className="wrapper">
-                <section className="content-app">
-                    <Switch>
-                        <Route path='/' exact={true} component={Homepage}/>
-                    </Switch>
-                </section>
-                <footer>
-                </footer>
+            <div className="container-app">
+                <Header title="Simple tweet" sections={navigation} headerColor={"white"} titleColor={"#50719e"}/>
+                <div className="wrapper">
+                    <section className="content-app">
+                        <Switch>
+                            <Route path='/' exact={true} component={Homepage}/>
+                        </Switch>
+                    </section>
+                    <footer>
+                    </footer>
+                </div>
             </div>
-                </>
         );
     }
 }
