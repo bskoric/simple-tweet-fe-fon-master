@@ -91,8 +91,6 @@ class Login extends Component {
                 {this.state.showSuccessMessage && !this.state.hasLoginFailed &&
                 <Alert severity="success">
                     <b>Successfully logged in!</b>
-                    <br/>
-                    Redirecting to home page!
                 </Alert>
                 }
 
@@ -147,7 +145,7 @@ class Login extends Component {
                         </Button>
                         <Grid container>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/register" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

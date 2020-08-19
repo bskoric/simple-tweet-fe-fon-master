@@ -9,7 +9,8 @@ class Tweets extends Component {
         return (
             <>
                 {tweets.map(tweet => (
-                    <Tweet {...tweet} key={tweet.tweet_id}/>
+                    <Tweet {...tweet} key={tweet.tweet_id}
+                           deleteButton={this.props.delete.bind(this, tweet.tweet_id)} editButton={this.props.edit.bind(this, tweet.tweet_id)}/>
                 ))}
             </>
         );

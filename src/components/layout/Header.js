@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import AuthService from "../service/AuthService";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -41,9 +42,9 @@ export default function Header(props) {
                         noWrap
                         className={classes.toolbarTitle}
                     >
-                        <span style={{color: titleColor}}> {title} </span>
+                        <span> <Link style={{color: titleColor, textDecoration: "none"}} href={"/"}> {title} </Link></span>
                     </Typography>
-                    <Button variant="outlined" size="small">
+                    <Button variant="outlined" size="small" onClick={AuthService.logout}>
                         Log out
                     </Button>
                 </Toolbar>

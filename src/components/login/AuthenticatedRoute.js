@@ -11,6 +11,13 @@ class AuthenticatedRoute extends Component {
             return <Route {...this.props} />
         }
 
+        if (this.props.path === "/register") {
+            if (AuthService.isUserLoggedIn()) {
+                return <Redirect to="/"/>
+            }
+            return <Route {...this.props} />
+        }
+
         if (AuthService.isUserLoggedIn()) {
             return <Route {...this.props} />
         } else {

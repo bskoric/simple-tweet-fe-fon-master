@@ -5,6 +5,7 @@ import Layout from "./components/layout/Layout";
 import 'fontsource-roboto';
 import AuthenticatedRoute from "./components/login/AuthenticatedRoute";
 import Login from "./components/login/Login";
+import Register from "./components/register/Register";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Router>
             <Switch>
                 <AuthenticatedRoute path='/login' exact={true} component={Login}/>
-                {/*<AuthenticatedRoute path="/logout" exact component={Logout} />*/}
+                <AuthenticatedRoute path='/register' exact={true} component={Register}/>
                 <AuthenticatedRoute path='/**' exact={true} component={Layout}/>
             </Switch>
         </Router>

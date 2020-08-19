@@ -6,6 +6,12 @@ class DataService {
         return Axios.get(url);
     }
 
+    getWithPatram(url, data) {
+        return Axios.get(url, {
+            params: data
+        })
+    }
+
     post (url, data){
         return Axios({
             method: 'post',

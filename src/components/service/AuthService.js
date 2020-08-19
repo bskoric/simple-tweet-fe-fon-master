@@ -1,4 +1,5 @@
 import Axios from "axios/index";
+import DataService from "./DataService";
 
 export const USERNAME_SESSION_ATTRIBUTE_NAME = 'AuthUsername';
 export const USER_SESSION_ATTRIBUTE_NAME = 'AuthUser';
@@ -6,19 +7,14 @@ export const USER_SESSION_ATTRIBUTE_NAME = 'AuthUser';
 class AuthService {
 
     login(username, password, url) {
-        return Axios({
-            method: 'post',
-            url: url,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                authorization: this.createBasicAuthToken(username, password)
-            },
-            data: {
-                username: username,
-                password: password
-            }
-        });
+        return DataService.post(url, {
+            username: username,
+            password: password
+        })
+    }
+
+    register(data, url) {
+        return DataService.post(url, data);
     }
 
     logout() {
