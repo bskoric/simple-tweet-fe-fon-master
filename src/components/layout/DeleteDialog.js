@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import ErrorIcon from '@material-ui/icons/Error';
 
 class DeleteDialog extends Component {
 
@@ -48,10 +49,10 @@ class DeleteDialog extends Component {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{"Delete"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">{"Delete ?"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Do you want to delete this item ?
+                            <ErrorIcon fontSize={'large'}/> Do you want to delete this item ?
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

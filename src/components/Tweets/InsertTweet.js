@@ -5,19 +5,24 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import TweetService from "./TweetService";
+import Alert from "@material-ui/lab/Alert";
+import AuthService from "../service/AuthService";
 
 class InsertTweet extends Component {
 
     emptyItem = {
         title: '',
         post: '',
-        user: 1
+        user: AuthService.getLoggedInUser().user_id
     };
 
     constructor(props) {
         super(props);
         this.state = {
             tweet: this.emptyItem,
+            alertMessage: "",
+            showAlert: false,
+            hasError: false,
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,22 +42,55 @@ class InsertTweet extends Component {
         event.preventDefault();
         const {tweet} = this.state;
 
-        TweetService.addTweet(tweet).catch( error => {
+        if (!tweet.title || !tweet.post) {
+            this.setState({
+                hasError: true,
+                alertMessage: "Title and post are mandatory"
+            });
+            this.onShowAlert();
+            return;
+        }
+
+        TweetService.addTweet(tweet).catch(error => {
                 console.log(error.response.data.ErrorMessage);
+                this.setState({
+                    hasError: true,
+                    alertMessage: "Error, try again"
+                });
+                this.onShowAlert()
             }
-        ).then( response =>{
+        ).then(response => {
             this.props.handler();
-            this.props.history.push({
-                pathname: '/',
-                state: {hasError: false, message: "Successfully added"}
-            })});
+            this.setState({
+                hasError: false,
+                alertMessage: "Added",
+                tweet:this.emptyItem
+            });
+            this.onShowAlert();
+        });
     }
+
+    onShowAlert = () => {
+        this.setState({showAlert: true}, () => {
+            window.setTimeout(() => {
+                this.setState({showAlert: false})
+            }, 3000)
+        });
+        this.props.history.replace({state: undefined});
+    };
 
     render() {
         const {tweet} = this.state;
 
         return (
             <Grid item xs={12} md={12}>
+
+                {this.state.hasError === true && this.state.showAlert &&
+                <Alert severity="error">{this.state.alertMessage}</Alert>}
+
+                {this.state.hasError === false && this.state.showAlert &&
+                <Alert severity="success">{this.state.alertMessage}</Alert>}
+
                 <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
                     <TextField label="Title" variant="outlined"
                                name="title"
