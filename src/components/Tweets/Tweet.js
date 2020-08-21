@@ -3,7 +3,6 @@ import {withRouter} from "react-router-dom"
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import CardHeader from "@material-ui/core/CardHeader";
 import Card from "@material-ui/core/Card";
@@ -11,6 +10,8 @@ import CardContent from "@material-ui/core/CardContent";
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import CardActions from "@material-ui/core/CardActions";
+import Tooltip from "@material-ui/core/Tooltip";
+import DeleteDialog from "../layout/DeleteDialog";
 
 class Tweet extends Component {
 
@@ -38,7 +39,11 @@ class Tweet extends Component {
                             <Avatar style={avatar} aria-label="recipe">{avatarInitial}</Avatar>
                         }
                         title={userFullName}
-                        subheader={new Date(date).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric' })}
+                        subheader={new Date(date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}
                     />
                     <CardContent>
                         <Typography variant="subtitle1" color="textPrimary" className={"tweetTitle"}>
@@ -50,15 +55,18 @@ class Tweet extends Component {
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="add to favorites">
-                            <FavoriteIcon/>
+                            <Tooltip title="Like" aria-label="like">
+                                <FavoriteIcon/>
+                            </Tooltip>
                         </IconButton>
-                        { this.props.editButton && <IconButton aria-label="Edit" onClick={this.props.editButton}>
-                            <EditIcon/>
-                        </IconButton> }
+                        {this.props.editButton && <IconButton aria-label="Edit" onClick={this.props.editButton}>
+                            <Tooltip title="Edit" aria-label="Edit">
+                                <EditIcon/>
+                            </Tooltip>
+                        </IconButton>}
 
-                        { this.props.deleteButton && <IconButton aria-label="Delete" onClick={this.props.deleteButton}>
-                            <DeleteForeverIcon/>
-                        </IconButton> }
+                        {this.props.deleteButton &&
+                        <DeleteDialog deleteAction={this.props.deleteButton}/>}
 
                     </CardActions>
                 </Card>

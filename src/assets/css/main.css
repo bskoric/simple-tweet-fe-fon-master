@@ -24,4 +24,9 @@
         margin: auto;
         width: 80%
     }
+
+    .userList {
+        width: 50%;
+        margin: auto;
+    }
 }

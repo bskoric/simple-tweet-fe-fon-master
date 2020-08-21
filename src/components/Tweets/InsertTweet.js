@@ -38,10 +38,6 @@ class InsertTweet extends Component {
         const {tweet} = this.state;
 
         TweetService.addTweet(tweet).catch( error => {
-                /*            this.props.history.push({
-                                pathname: '/',
-                                state: {hasError: true, message: "Error while adding: "+error.response.data.ErrorMessage}
-                            })}*/
                 console.log(error.response.data.ErrorMessage);
             }
         ).then( response =>{
