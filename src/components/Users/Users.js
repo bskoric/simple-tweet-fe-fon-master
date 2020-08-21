@@ -9,7 +9,7 @@ class Users extends Component {
         return (
             <>
                 {users.map(user => (
-                    <User {...user} key={user.friend_id} actionName={this.props.actionName}/>
+                    <User {...user} key={user.user_id} action={this.props.action ? this.props.action.bind(this, user.user_id) : undefined} actionName={this.props.actionName}/>
                 ))}
             </>
         );

@@ -9,7 +9,7 @@ import Register from "./components/register/Register";
 
 function App() {
   return (
-      <div>
+      <div className={"wrapApp"}>
         <Router>
             <Switch>
                 <AuthenticatedRoute path='/login' exact={true} component={Login}/>

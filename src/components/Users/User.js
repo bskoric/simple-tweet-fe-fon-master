@@ -2,16 +2,12 @@ import React, {Component} from 'react';
 import {withRouter} from "react-router-dom"
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import CardHeader from "@material-ui/core/CardHeader";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import CardActions from "@material-ui/core/CardActions";
-import Tooltip from "@material-ui/core/Tooltip";
-import Button from "@material-ui/core/Button";
-import EmailIcon from '@material-ui/icons/Email';
+import ButtonConfirmDialog from "./ButtonConfirmDialog";
 
 class User extends Component {
 
@@ -33,7 +29,7 @@ class User extends Component {
         };
 
         return (
-            <div className={"userList"}>
+            <div className={""}>
                 <Grid item xs={12} md={8}>
                     <Card>
                         <CardHeader
@@ -58,7 +54,9 @@ class User extends Component {
                             </Typography>
                         </CardContent>
                         <CardActions disableSpacing>
-                            <Button aria-label="add to favorites" color="secondary" variant="contained">{this.props.actionName}</Button>
+                            {this.props.actionName && this.props.action &&
+                            <ButtonConfirmDialog action={this.props.action} actionName={this.props.actionName}/>
+                            }
                         </CardActions>
                     </Card>
                     <br/>

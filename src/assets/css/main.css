@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300&display=swap');
 
+html, body, #root {
+    height: 100%;
+}
+
+.wrapApp {
+    height: 100%;
+}
 .container-app {
+    min-height: 100%;
     background-color: #f0f0f08a;
 }
 
@@ -28,5 +36,12 @@
     .userList {
         width: 50%;
         margin: auto;
+        margin-top: 30px;
+    }
+
+    .addFriendList {
+        width: 70%;
+        margin: auto;
+        margin-top: 30px;
     }
 }

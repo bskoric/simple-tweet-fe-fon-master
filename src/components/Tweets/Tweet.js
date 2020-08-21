@@ -12,17 +12,63 @@ import Avatar from "@material-ui/core/Avatar";
 import CardActions from "@material-ui/core/CardActions";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteDialog from "../layout/DeleteDialog";
+import TweetService from "./TweetService";
+import AuthService from "../service/AuthService";
 
 class Tweet extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            liked: false,
+            numberOfLikes: 0
+        };
     }
+
+    componentDidMount() {
+        TweetService.checkTweet(this.props.tweet_id, AuthService.getLoggedInUser().user_id).then(res => {
+            this.setState({
+                liked: res.data.like === 1
+            })
+        });
+
+        this.setNumberOfLikes();
+    }
+
+    setNumberOfLikes = () => {
+        TweetService.getLikesForTweet(this.props.tweet_id).then(res => {
+            this.setState({
+                numberOfLikes: res.data.likes
+            });
+            this.setNumberOfLikes();
+        })
+    };
+
+    like = (tweet_id) => {
+        const user_id = AuthService.getLoggedInUser().user_id;
+        TweetService.like(tweet_id, user_id).then(res => {
+                this.setState({
+                    liked: true
+                })
+            }
+        );
+    };
+
+    unlike = (tweet_id) => {
+        const user_id = AuthService.getLoggedInUser().user_id;
+        TweetService.unlike(tweet_id, user_id).then(res => {
+                this.setState({
+                    liked: false
+                });
+            this.setNumberOfLikes();
+            }
+        ).catch(res => console.log(res.response.data));
+    };
 
     render() {
         const tweet = this.props;
-        const {title, post, first_name, last_name, date} = tweet;
+        const {tweet_id, title, post, first_name, last_name, date} = tweet;
+        const liked = this.state.liked;
         const userFullName = first_name + " " + last_name;
         const avatarInitial = first_name.charAt(0) + last_name.charAt(0);
 
@@ -54,11 +100,21 @@ class Tweet extends Component {
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
+
+                        {!liked &&
+                        <IconButton aria-label="add to favorites" onClick={this.like.bind(this, tweet_id)}>
                             <Tooltip title="Like" aria-label="like">
                                 <FavoriteIcon/>
                             </Tooltip>
                         </IconButton>
+                        }
+
+                        {liked && <IconButton onClick={this.unlike.bind(this, tweet_id)}>
+                            <Tooltip title="Liked" aria-label="liked">
+                                <FavoriteIcon htmlColor={"red"}/>
+                            </Tooltip>
+                        </IconButton>}
+                        {this.state.numberOfLikes}
                         {this.props.editButton && <IconButton aria-label="Edit" onClick={this.props.editButton}>
                             <Tooltip title="Edit" aria-label="Edit">
                                 <EditIcon/>

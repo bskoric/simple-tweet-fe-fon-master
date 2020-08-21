@@ -3,6 +3,8 @@ import Tweets from "../Tweets/Tweets";
 import Grid from "@material-ui/core/Grid";
 import InsertTweet from "../Tweets/InsertTweet";
 import TweetService from "../Tweets/TweetService";
+import AuthService from "../service/AuthService";
+import Divider from "@material-ui/core/Divider";
 
 class Homepage extends Component {
 
@@ -16,7 +18,7 @@ class Homepage extends Component {
     }
 
     userID = {
-        userID: 1
+        userID: AuthService.getLoggedInUser().user_id
     };
 
     componentDidMount() {
@@ -45,8 +47,13 @@ class Homepage extends Component {
     }
 
     render() {
+        const user = AuthService.getLoggedInUser();
         return (
             <React.Fragment>
+                <p style={{fontFamily: "Lemonada", color: "rgb(50 73 106)"}}>Hello {user.first_name} , enjoy reading tweets</p>
+
+                <Divider/>
+
                 <Grid container spacing={1}>
                     <Grid item xs={12} md={8}>
                         <div className={"tweetsHomepage"}>
