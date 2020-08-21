@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import Alert from "@material-ui/lab/Alert";
+import ReactPaginate from "react-paginate";
 
 class UserTweetsPage extends Component {
 
@@ -23,12 +24,16 @@ class UserTweetsPage extends Component {
             alertMessage: "",
             showAlert: false,
             hasError: false,
-            editTweet: false
+            editTweet: false,
+            offset: 0,
+            perPage:5,
+            currentPage: 0
         };
 
         this.getMyTweets = this.getMyTweets.bind(this);
         this.handleEditFormChange = this.handleEditFormChange.bind(this);
         this.handleFormEditSubmit = this.handleFormEditSubmit.bind(this);
+        this.handlePageClick = this.handlePageClick.bind(this);
         this.myDivToFocus = React.createRef();
     }
 
@@ -37,11 +42,31 @@ class UserTweetsPage extends Component {
     }
 
     getMyTweets() {
-        TweetService.getMyTweets( AuthService.getLoggedInUsername())
-            .then(res => this.setState({
-                tweets: res.data,
-            })).catch(error => console.log(error))
-    }
+        TweetService.getMyTweets(AuthService.getLoggedInUsername())
+            .then(res => {
+                const data = res.data;
+                const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+                this.setState({
+                    tweets: slice,
+                });
+                this.setState({
+                    pageCount: Math.ceil(data.length / this.state.perPage),
+                })
+            }).catch(error => console.log(error))
+    };
+
+    handlePageClick = (e) => {
+        const selectedPage = e.selected;
+        const offset = selectedPage * this.state.perPage;
+
+        this.setState({
+            currentPage: selectedPage,
+            offset: offset
+        }, () => {
+            this.getMyTweets();
+        });
+
+    };
 
     onShowAlert = () => {
         this.setState({showAlert: true}, () => {
@@ -148,6 +173,18 @@ class UserTweetsPage extends Component {
                     <Grid item xs={12} md={8}>
                         <div className={"tweetsHomepage"}>
                             <Tweets tweets={this.state.tweets} delete={this.deleteTweet} edit={this.showEditForm} />
+                            <ReactPaginate
+                                previousLabel={"prev"}
+                                nextLabel={"next"}
+                                breakLabel={"..."}
+                                breakClassName={"break-me"}
+                                pageCount={this.state.pageCount}
+                                marginPagesDisplayed={1}
+                                pageRangeDisplayed={2}
+                                onPageChange={this.handlePageClick}
+                                containerClassName={"pagination"}
+                                subContainerClassName={"pages pagination"}
+                                activeClassName={"active"}/>
                         </div>
                     </Grid>
 

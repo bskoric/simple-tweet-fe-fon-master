@@ -5,6 +5,7 @@ import InsertTweet from "../Tweets/InsertTweet";
 import TweetService from "../Tweets/TweetService";
 import AuthService from "../service/AuthService";
 import Divider from "@material-ui/core/Divider";
+import ReactPaginate from 'react-paginate';
 
 class Homepage extends Component {
 
@@ -12,9 +13,13 @@ class Homepage extends Component {
         super(props);
         this.state = {
             tweets: [],
+            offset: 0,
+            perPage: 5,
+            currentPage: 0
         };
 
         this.getAllFriendsTweets = this.getAllFriendsTweets.bind(this);
+        this.handlePageClick = this.handlePageClick.bind(this);
     }
 
     userID = {
@@ -27,30 +32,38 @@ class Homepage extends Component {
 
     getAllFriendsTweets() {
         TweetService.getAllTweetsFromFriends(this.userID)
-            .then(res => this.setState({
-                tweets: res.data,
-            }))
+            .then(res => {
+                const data = res.data;
+                const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+                this.setState({
+                        tweets: slice,
+                    }
+                );
+                this.setState({
+                    pageCount: Math.ceil(data.length / this.state.perPage),
+                })
+            })
     }
 
-    onShowAlert = () => {
-        this.setState({showAlert: true}, () => {
-            window.setTimeout(() => {
-                this.setState({showAlert: false})
-            }, 2000)
+    handlePageClick = (e) => {
+        const selectedPage = e.selected;
+        const offset = selectedPage * this.state.perPage;
+
+        this.setState({
+            currentPage: selectedPage,
+            offset: offset
+        }, () => {
+            this.getAllFriendsTweets();
         });
-        this.props.history.replace({state: undefined});
-    };
 
-    onDismiss() {
-        this.setState({showAlert: false});
-        this.props.history.replace({state: undefined});
-    }
+    };
 
     render() {
         const user = AuthService.getLoggedInUser();
         return (
             <React.Fragment>
-                <p style={{fontFamily: "Lemonada", color: "rgb(50 73 106)"}}>Hello {user.first_name} , enjoy reading tweets</p>
+                <p style={{fontFamily: "Lemonada", color: "rgb(50 73 106)"}}><b>Hello {user.first_name}</b>, enjoy
+                    reading tweets</p>
 
                 <Divider/>
 
@@ -58,6 +71,18 @@ class Homepage extends Component {
                     <Grid item xs={12} md={8}>
                         <div className={"tweetsHomepage"}>
                             <Tweets tweets={this.state.tweets}/>
+                            <ReactPaginate
+                                previousLabel={"prev"}
+                                nextLabel={"next"}
+                                breakLabel={"..."}
+                                breakClassName={"break-me"}
+                                pageCount={this.state.pageCount}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={this.handlePageClick}
+                                containerClassName={"pagination"}
+                                subContainerClassName={"pages pagination"}
+                                activeClassName={"active"}/>
                         </div>
                     </Grid>
 
