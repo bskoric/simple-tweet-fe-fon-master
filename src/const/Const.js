@@ -15,6 +15,8 @@ export const FOLLOWERS = BASE_URL + '/users/followers';
 export const NON_FRIENDS = BASE_URL + '/users/non-friends';
 export const ADD_FRIEND = BASE_URL + '/users/add-friend';
 export const REMOVE_FRIEND = BASE_URL + '/users/remove-friend';
+export const PASSWORD_CHANGE = BASE_URL + '/user/password/update';
+export const UPDATE_USER = BASE_URL + '/user/update';
 
 export const ADD_LIKE = BASE_URL + '/like';
 export const REMOVE_LIKE = BASE_URL + '/like/remove';

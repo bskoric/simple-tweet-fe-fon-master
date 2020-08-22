@@ -49,7 +49,7 @@ class AuthService {
     getLoggedInUser() {
         const user = sessionStorage.getItem(USER_SESSION_ATTRIBUTE_NAME);
         if (user === null) return null;
-        return JSON.parse(user)[0];
+        return JSON.parse(user);
     }
 
     getLoggedInUsername() {

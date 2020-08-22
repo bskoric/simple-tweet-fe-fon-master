@@ -52,7 +52,7 @@ class InsertTweet extends Component {
         }
 
         TweetService.addTweet(tweet).catch(error => {
-                console.log(error.response.data.ErrorMessage);
+                console.log(error.response.data);
                 this.setState({
                     hasError: true,
                     alertMessage: "Error, try again"

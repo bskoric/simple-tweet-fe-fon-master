@@ -6,6 +6,7 @@ import "./../../assets/css/main.css";
 import UserTweetsPage from "../pages/UserTweetsPage";
 import FriendsPage from "../pages/FriendsPage";
 import NonfriendsPage from "../pages/NonfriendsPage";
+import UserPage from "../pages/UserPage";
 
 class Layout extends Component {
     render() {
@@ -13,7 +14,7 @@ class Layout extends Component {
             { title: 'My tweets', url: '/my/tweets' },
             { title: 'Friends', url: '/friends' },
             { title: 'Find friends', url: '/find-friends' },
-            { title: 'Profile', url: '#' },
+            { title: 'Profile', url: '/profile' },
         ];
 
         return (
@@ -26,6 +27,7 @@ class Layout extends Component {
                             <Route path='/my/tweets' exact={true} component={UserTweetsPage}/>
                             <Route path='/friends' exact={true} component={FriendsPage}/>
                             <Route path='/find-friends' exact={true} component={NonfriendsPage}/>
+                            <Route path='/profile' exact={true} component={UserPage}/>
                         </Switch>
                     </section>
                     <footer>

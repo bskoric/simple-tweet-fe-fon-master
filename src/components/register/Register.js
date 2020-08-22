@@ -82,7 +82,10 @@ class Register extends Component {
 
     onChange(e) {
         const target = e.target;
-        const value = target.value;
+        let value = e.target.value;
+        if (e.target.name === "password") {
+            value = window.btoa(e.target.value)
+        }
         const name = target.name;
         let user = {...this.state.user};
         user[name] = value;

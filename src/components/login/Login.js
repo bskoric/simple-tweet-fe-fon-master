@@ -35,7 +35,7 @@ class Login extends Component {
 
         AuthService.login(username, password, LOGIN_URL).then((response) => {
             sessionStorage.setItem(USERNAME_SESSION_ATTRIBUTE_NAME, username);
-            sessionStorage.setItem(USER_SESSION_ATTRIBUTE_NAME, JSON.stringify(response.data));
+            sessionStorage.setItem(USER_SESSION_ATTRIBUTE_NAME, JSON.stringify(response.data[0]));
 
             AuthService.setupAxiosInterceptors(username, password);
 
@@ -54,7 +54,11 @@ class Login extends Component {
     }
 
     onChange(e) {
-        this.setState({[e.target.name]: e.target.value});
+        let value = e.target.value;
+        if (e.target.name === "password") {
+            value = window.btoa(e.target.value)
+        }
+        this.setState({[e.target.name]: value});
     }
 
     render() {

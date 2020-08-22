@@ -135,8 +135,17 @@ class UserTweetsPage extends Component {
         event.preventDefault();
         const {tweet} = this.state;
 
+        if (!tweet.title || !tweet.post) {
+            this.setState({
+                hasError: true,
+                alertMessage: "Title and post are mandatory"
+            });
+            this.onShowAlert();
+            return;
+        }
+
         TweetService.updateTweet(tweet).catch( error => {
-                console.log(error.response.data.ErrorMessage);
+                console.log(error.response.data);
             this.setState({
                 hasError: true,
                 alertMessage: "Error !",
