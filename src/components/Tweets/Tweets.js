@@ -8,6 +8,8 @@ class Tweets extends Component {
         const tweets = this.props.tweets;
         return (
             <>
+                {tweets.length === 0 && <div style={{fontFamily: "Lemonada"}}>Sorry, there is no tweets to show</div>}
+
                 {tweets.map(tweet => (
                     <Tweet {...tweet} key={tweet.tweet_id}
                            deleteButton={this.props.delete ? this.props.delete.bind(this, tweet.tweet_id) : undefined}
